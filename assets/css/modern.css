@@ -1,0 +1,745 @@
+/* 
+  Modern Birthday Reminder System Styles 
+  - Consistent Light/Dark Theme, Design System Variables
+*/
+
+/* 1. Universal Reset and Box Sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 2. Transition Consistency for Themeable Elements */
+body,
+.header,
+.card,
+.form-control,
+.table,
+.nav a,
+.btn,
+.alert,
+.badge,
+.pagination a,
+.pagination span {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+/* 3. THEME VARIABLES: LIGHT & DARK (Consistency via Design System) */
+:root {
+  --primary-color: #4a90e2;
+  --primary-dark: #357abd;
+  --secondary-color: #50c878;
+  --danger-color: #e74c3c;
+  --warning-color: #f39c12;
+  --text-color: #333;
+  --text-light: #666;
+  --bg-color: #f5f7fa;
+  --card-bg: #fff;
+  --border-color: #e1e8ed;
+  --shadow: 0 2px 8px rgba(0,0,0,0.1);
+  --shadow-hover: 0 4px 16px rgba(0,0,0,0.15);
+  --body-gradient: #fff;
+}
+
+[data-theme="dark"] {
+  --primary-color: #5ba3f5;
+  --primary-dark: #4a90e2;
+  --secondary-color: #6dd89a;
+  --danger-color: #ff6b6b;
+  --warning-color: #ffa94d;
+  --text-color: #e0e0e0;
+  --text-light: #b0b0b0;
+  --bg-color: #000;
+  --card-bg: #1a1a1a;
+  --border-color: #333;
+  --shadow: 0 2px 8px rgba(0,0,0,0.5);
+  --shadow-hover: 0 4px 16px rgba(0,0,0,0.6);
+  --body-gradient: #000;
+}
+
+/* 4. Utility: Required field indicator (consistent on light/dark) */
+.required {
+  color: var(--danger-color);
+  font-weight: 600;
+}
+
+/* 5. Typography Consistency in Alerts & Small Text */
+.alert strong {
+  font-weight: 600;
+  color: inherit;
+}
+.error-message {
+  color: var(--danger-color);
+}
+small {
+  color: var(--text-light);
+}
+
+/* 6. Spinner (brand colors) */
+.spinner {
+  border: 3px solid var(--border-color);
+  border-top: 3px solid var(--primary-color);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 7. Theme Toggle Button */
+.theme-toggle {
+  background: var(--bg-color);
+  border: 2px solid var(--border-color);
+  color: var(--text-color);
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 45px;
+  height: 45px;
+  margin-left: 10px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.theme-toggle:hover {
+  background: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+}
+.theme-toggle:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(74,144,226,0.2);
+}
+.theme-toggle .icon-sun, .theme-toggle .icon-moon {
+  transition: transform 0.3s;
+  display: inline-block;
+}
+.theme-toggle .icon-sun { display: none; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: inline-block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+/* 8. Layout Backgrounds */
+html, body {
+  background: var(--body-gradient) !important;
+  background-color: var(--body-gradient) !important;
+  min-height: 100vh;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: var(--text-color);
+  line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* 9. Page Structure: Main, Container, Header, Navigation */
+main {
+  background: transparent;
+  min-height: calc(100vh - 200px);
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: transparent;
+}
+.header {
+  background: var(--card-bg);
+  box-shadow: var(--shadow);
+  border-radius: 12px;
+  padding: 20px 30px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.logo img { max-height: 60px; }
+.logo h1 {
+  font-size: 24px;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+.header .nav,
+.nav {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.nav a {
+  padding: 10px 20px;
+  text-decoration: none;
+  color: var(--text-color);
+  border-radius: 6px;
+  font-weight: 500;
+  background: var(--bg-color);
+  transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+.nav a:hover, .nav a.active {
+  background: var(--primary-color);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* 10. Card Design Pattern */
+.card {
+  background: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 30px;
+  margin-bottom: 20px;
+  transition: box-shadow 0.3s, background 0.3s;
+}
+.card:hover {
+  box-shadow: var(--shadow-hover);
+}
+.card-header {
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+.card-header h2 {
+  font-size: 24px;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+/* 11. Forms - Consistent Component Heights and Colors */
+.form-group { margin-bottom: 20px; }
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 16px;
+  background: var(--card-bg);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+  font-family: inherit;
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(74,144,226,0.1);
+}
+.form-control.error {
+  border-color: var(--danger-color);
+}
+.form-control::placeholder {
+  color: var(--text-light);
+  opacity: 0.7;
+}
+[data-theme="dark"] .form-control::placeholder {
+  color: var(--text-light);
+  opacity: 0.6;
+}
+select.form-control {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 35px;
+}
+[data-theme="dark"] select.form-control {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23e0e0e0' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+}
+
+/* 12. Table Design (Consistent Padding, Color Vars) */
+.table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  padding: 1px;
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: background-color 0.3s;
+}
+.table thead {
+  background: var(--primary-color);
+  color: #fff;
+}
+.table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.table td {
+  padding: 15px;
+  border-bottom: 1px solid var(--border-color);
+}
+.table tbody tr { transition: background-color 0.2s; }
+.table tbody tr:hover {
+  background: var(--bg-color);
+}
+[data-theme="dark"] .table tbody tr:hover {
+  background: #2a2a2a;
+}
+.table tbody tr:last-child td { border-bottom: none; }
+
+/* 13. Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.pagination a,
+.pagination span {
+  padding: 10px 15px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+}
+.pagination a {
+  background: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+.pagination a:hover {
+  background: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+.pagination .current {
+  background: var(--primary-color);
+  color: #fff;
+  border: 1px solid var(--primary-color);
+}
+.pagination .disabled {
+  background: #f0f0f0;
+  color: #ccc;
+  cursor: not-allowed;
+  border: 1px solid #e0e0e0;
+}
+[data-theme="dark"] .pagination .disabled {
+  background: #1a1a1a;
+  color: #666;
+  border: 1px solid #333;
+}
+
+/* 14. Alert Consistency */
+.alert {
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid;
+}
+.alert ul {
+  margin: 10px 0 0 20px;
+  padding-left: 20px;
+}
+.alert li {
+  margin: 5px 0;
+}
+/* Alert coloring (light theme) */
+.alert-success {
+  background: #d4edda;
+  border-color: var(--secondary-color);
+  color: #155724;
+}
+.alert-error {
+  background: #f8d7da;
+  border-color: var(--danger-color);
+  color: #721c24;
+}
+.alert-info {
+  background: #d1ecf1;
+  border-color: var(--primary-color);
+  color: #0c5460;
+}
+/* Dark theme */
+[data-theme="dark"] .alert-success {
+  background: #1e4620;
+  border-color: var(--secondary-color);
+  color: #a5d6a7;
+}
+[data-theme="dark"] .alert-error {
+  background: #4a1e1e;
+  border-color: var(--danger-color);
+  color: #ffcdd2;
+}
+[data-theme="dark"] .alert-info {
+  background: #1e3a4a;
+  border-color: var(--primary-color);
+  color: #b3e5fc;
+}
+[data-theme="dark"] .alert ul { color: inherit; }
+
+/* 15. Badges - systematic sizes and palette */
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.badge-warning {
+  background: #fff3cd;
+  color: #856404;
+}
+.badge-danger {
+  background: #f8d7da;
+  color: #721c24;
+}
+.badge-success {
+  background: #d4edda;
+  color: #155724;
+}
+[data-theme="dark"] .badge-warning {
+  background: #4a3a1e;
+  color: #ffcc80;
+}
+[data-theme="dark"] .badge-danger {
+  background: #4a1e1e;
+  color: #ffcdd2;
+}
+[data-theme="dark"] .badge-success {
+  background: #1e4620;
+  color: #a5d6a7;
+}
+
+/* 16. Buttons - Sizes, Colors, Hover effects (Consistent) */
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+.btn-primary {
+  background: var(--primary-color);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+}
+.btn-danger {
+  background: var(--danger-color);
+  color: #fff;
+}
+.btn-danger:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+}
+.btn-secondary {
+  background: var(--text-light);
+  color: #fff;
+}
+.btn-secondary:hover {
+  background: #555;
+}
+[data-theme="dark"] .btn-secondary {
+  background: #333;
+  color: #fff;
+}
+[data-theme="dark"] .btn-secondary:hover {
+  background: #444;
+}
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+[data-theme="dark"] .btn-primary:hover {
+  box-shadow: 0 4px 12px rgba(91,163,245,0.4);
+}
+[data-theme="dark"] .btn-danger:hover {
+  box-shadow: 0 4px 12px rgba(255,107,107,0.4);
+}
+[data-theme="dark"] .pg-btn:hover, .nbutton:hover {
+    color:#fff !important;
+  }
+
+  
+/* 17. Login Card (Central Box Shadow and Padding) */
+.login-container {
+  max-width: 450px;
+  margin: 100px auto;
+}
+.login-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+  padding: 40px;
+}
+[data-theme="dark"] .login-card {
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+.login-card h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: var(--primary-color);
+  font-size: 28px;
+}
+
+/* 18. Search Dialog Consistency */
+.search-dialog {
+  background: var(--card-bg);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: var(--shadow-hover);
+  transition: background-color 0.3s, color 0.3s;
+}
+[data-theme="dark"] .search-dialog {
+  background: var(--card-bg);
+  color: var(--text-color);
+}
+[data-theme="dark"] .search-dialog .form-control {
+  background: var(--card-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+.search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 19. Radio Group with theme accent */
+.radio-group {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  color: var(--text-color);
+  transition: color 0.3s;
+}
+.radio-group label:hover {
+  color: var(--primary-color);
+}
+.radio-group input[type="radio"] {
+  cursor: pointer;
+  accent-color: var(--primary-color);
+}
+[data-theme="dark"] .radio-group input[type="radio"] {
+  accent-color: var(--primary-color);
+}
+.radio-group input[type="radio"]:checked {
+  accent-color: var(--primary-color);
+}
+
+/* 20. Date input - highlight on hover */
+.date-input {
+  cursor: pointer;
+}
+.date-input:hover {
+  border-color: var(--primary-color);
+}
+
+/* 21. Utility Classes */
+.btn-full { width: 100%; }
+.text-center { text-align: center; }
+.mt-20 { margin-top: 20px; }
+.mb-20 { margin-bottom: 20px; }
+.hidden { display: none; }
+
+/* 22. Responsive - Scales for Devices */
+@media (max-width: 768px) {
+  .container { padding: 10px; }
+  .header { flex-direction: column; gap: 15px; }
+  .nav { width: 100%; justify-content: center; }
+  .nav a { flex: 1; text-align: center; }
+  .theme-toggle { margin-left: 0; margin-top: 10px; width: 100%; max-width: 200px; }
+  .card { padding: 20px; }
+  .table { font-size: 14px; }
+  .table th, .table td { padding: 10px 8px; }
+  .login-container { margin: 50px auto; padding: 0 20px; }
+  .login-card { padding: 30px 20px; }
+}
+
+/* 23. DARK THEME: Deep Consistency */
+[data-theme="dark"],
+[data-theme="dark"] html,
+[data-theme="dark"] body,
+html[data-theme="dark"],
+body[data-theme="dark"] {
+  background: #000 !important;
+  background-color: #000 !important;
+}
+[data-theme="dark"] .container,
+[data-theme="dark"] .container-fluid,
+[data-theme="dark"] main {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+[data-theme="dark"] .card,
+[data-theme="dark"] .card-body,
+[data-theme="dark"] .card-header {
+  background-color: var(--card-bg) !important;
+  color: var(--text-color) !important;
+}
+[data-theme="dark"] .form-control,
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  background-color: var(--card-bg) !important;
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+}
+[data-theme="dark"] a { color: var(--primary-color);}
+[data-theme="dark"] a:hover { color: var(--primary-dark);}
+[data-theme="dark"] small { color: var(--text-light);}
+[data-theme="dark"] .table-container {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow) !important;
+}
+[data-theme="dark"] .table {
+  background: var(--card-bg) !important;
+}
+[data-theme="dark"] .table thead {
+  background: var(--primary-color) !important;
+  color: #fff !important;
+}
+[data-theme="dark"] .table tbody {
+  background: var(--card-bg) !important;
+}
+[data-theme="dark"] .table td { 
+  color: var(--text-color) !important;
+  border-bottom-color: var(--border-color) !important;
+}
+[data-theme="dark"] .table th { 
+  color: #fff !important;
+  background: var(--primary-color) !important;
+}
+[data-theme="dark"] .table>:not(caption)>*>* { background-color: #000 !important;}
+[data-theme="dark"] .required { color: var(--danger-color);}
+[data-theme="dark"] .error-message { color: var(--danger-color);}
+[data-theme="dark"] .card-header { border-bottom-color: var(--border-color);}
+[data-theme="dark"] .card-header h2 { color: var(--primary-color);}
+
+/* Native Date Input Styling */
+input[type="date"] {
+  cursor: pointer;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.7;
+  filter: invert(0);
+  transition: opacity 0.3s;
+}
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+[data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.8;
+}
+[data-theme="dark"] input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+[data-theme="dark"] .btn-primary,
+[data-theme="dark"] .btn-danger {
+  color: #fff !important;
+}
+
+#dialog {
+    display: none;
+    transition: opacity 0.18s;
+    opacity: 0;
+    pointer-events: none;
+}
+#dialog.popup-active {
+    display: flex !important;
+    opacity: 1 !important;
+    pointer-events: auto;
+    position: fixed;
+    z-index: 2100;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.4);
+}
+#dialog .modal-content {
+    background: var(--card-bg, #fff);
+    color: var(--text-color, #222);
+    border-radius: 8px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.15);
+    padding: 2rem 1.5rem 1.25rem 1.5rem;
+    min-width: 320px;
+    max-width: 450px;
+    width: 100%;
+    position: relative;
+    margin: 0;
+}
+#dialog .modal-header {
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#dialog .modal-title {
+    font-size: 1.2rem;
+    margin: 0;
+}
+#dialog .close-modal {
+    background: transparent;
+    border: none;
+    font-size: 1.5em;
+    color: var(--text-light, #888);
+    cursor: pointer;
+    line-height: 1;
+}
+#dialog .search-form .form-group {
+    margin-bottom: 1rem;
+}
+#dialog .radio-group label {
+    margin-right: 1.5em;
+    font-weight: normal;
+}
+#dialog .btn.btn-primary {
+    width: 100%;
+    margin-top: 8px;
+}
+[data-theme="dark"] #dialog .modal-content {
+    background: var(--card-bg, #222);
+    color: var(--text-color, #eee);
+}
+[data-theme="dark"] #dialog .close-modal {
+    color: var(--text-light, #ccc);
+}
